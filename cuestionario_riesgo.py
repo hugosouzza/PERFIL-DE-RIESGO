@@ -18,6 +18,8 @@ def clasificar_perfil(puntaje_total):
         return "Agresivo"
     elif 34 <= puntaje_total <= 40:
         return "Muy Agresivo"
+    else:
+        return "Error en la clasificación"
 
 # ============================================
 #          Definición de preguntas
