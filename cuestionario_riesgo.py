@@ -91,18 +91,20 @@ preguntas = {
 respuestas = []
 st.write("## Cuestionario")
 for pregunta, opciones in preguntas.items():
-    respuesta = st.radio(pregunta, opciones)  # Radio buttons para cada pregunta
-    respuestas.append(opciones.index(respuesta) + 1)  # Guardar índice como respuesta (1 a 4)
+    opciones_con_blanco = ["Selecciona una opción"] + opciones
+    respuesta = st.selectbox(pregunta, opciones_con_blanco, index=0)  # Selectbox con opción en blanco
+    if respuesta != "Selecciona una opción":
+        respuestas.append(opciones.index(respuesta) + 1)  # Guardar índice como respuesta (1 a 4)
 
 # ============================================
 #          Cálculo del puntaje total
 # ============================================
 if st.button('Enviar'):  # Botón para enviar respuestas
-    puntaje_total = sum(respuestas) * 2.5  # Ajuste de escala al rango 10-40
-    puntaje_total = round(puntaje_total)  # Redondeo
-    perfil = clasificar_perfil(puntaje_total)  # Clasificación del perfil
-    
-    st.write("### Resultado")
-    st.write(f"Perfil de riesgo: {perfil}")
-
-
+    if len(respuestas) == len(preguntas):  # Verifica que se respondieron todas
+        puntaje_total = sum(respuestas) * 2.5  # Ajuste de escala al rango 10-40
+        puntaje_total = round(puntaje_total)  # Redondeo
+        perfil = clasificar_perfil(puntaje_total)  # Clasificación del perfil
+        st.write("### Resultado")
+        st.write(f"Perfil de riesgo: {perfil}")
+    else:
+        st.write("Por favor, responde todas las preguntas antes de enviar.")
