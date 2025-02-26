@@ -110,3 +110,5 @@ if st.button('Enviar'):  # Botón para enviar respuestas
         st.write(f"Perfil de riesgo: {perfil}")
     else:
         st.write("Por favor, responde todas las preguntas antes de enviar.")
+
+#AAA
