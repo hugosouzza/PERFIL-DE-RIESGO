@@ -137,7 +137,6 @@ if st.button('Enviar'):  # Botón para enviar respuestas
         puntaje_total = round(puntaje_total)  # Redondeo
         perfil = clasificar_perfil(puntaje_total)  # Clasificación del perfil
         st.write("### Resultado")
-        st.write(f"Puntaje total: {puntaje_total}")  # Mostramos el puntaje total
         st.write(f"Perfil de riesgo: {perfil}")
     else:
         st.write("Por favor, responde todas las preguntas antes de enviar.")
