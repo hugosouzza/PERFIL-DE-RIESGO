@@ -93,7 +93,7 @@ preguntas = {
 respuestas = []
 st.write("## Cuestionario")
 for pregunta, opciones in preguntas.items():
-    respuesta = st.radio(pregunta, opciones, index=-1)  # Radio buttons sin opción preseleccionada
+    respuesta = st.radio(pregunta, opciones)  # Radio buttons sin opción preseleccionada
     if respuesta:  # Verifica que se seleccionó una respuesta
         respuestas.append(opciones.index(respuesta) + 1)  # Guardar índice como respuesta (1 a 4)
 
