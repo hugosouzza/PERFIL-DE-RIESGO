@@ -93,9 +93,8 @@ preguntas = {
 respuestas = []
 st.write("## Cuestionario")
 for pregunta, opciones in preguntas.items():
-    opciones_con_blanco = [" "] + opciones  # Primer ítem en blanco
-    respuesta = st.selectbox(pregunta, opciones_con_blanco)  # Selectbox con blanco inicial
-    if respuesta != " ":  # Verifica que no esté en blanco
+    respuesta = st.radio(pregunta, opciones, index=-1)  # Radio buttons sin opción preseleccionada
+    if respuesta:  # Verifica que se seleccionó una respuesta
         respuestas.append(opciones.index(respuesta) + 1)  # Guardar índice como respuesta (1 a 4)
 
 # ============================================
@@ -110,5 +109,3 @@ if st.button('Enviar'):  # Botón para enviar respuestas
         st.write(f"Perfil de riesgo: {perfil}")
     else:
         st.write("Por favor, responde todas las preguntas antes de enviar.")
-
-#AAA
