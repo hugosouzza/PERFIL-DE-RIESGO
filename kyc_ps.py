@@ -1,4 +1,4 @@
-mport streamlit as st
+Import streamlit as st
 
 # Título de la página
 st.title("Formulario KYC")
