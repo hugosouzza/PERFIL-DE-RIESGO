@@ -1,78 +1,3 @@
-Import streamlit as st
-
-# Título de la página
-st.title("Formulario KYC")
-
-# Instrucciones
-st.write("Seleccione el tipo de cliente para comenzar:")
-
-# Opción para elegir entre Persona Física o Jurídica
-tipo_cliente = st.radio(
-    "¿Qué tipo de cliente eres?",
-    ("Persona Física", "Persona Jurídica")
-)
-
-# Mostrar la selección
-if tipo_cliente == "Persona Física":
-    st.write("Has seleccionado **Persona Física**. Ahora completaremos tu formulario.")
-    
-    # Formulario para Persona Física
-    nombre = st.text_input("Nombre completo")
-    numero_ficha = st.text_input("Número de ficha")
-    fecha = st.date_input("Fecha")
-    domicilio = st.text_input("Domicilio")
-    telefono = st.text_input("Teléfono")
-    email = st.text_input("Email")
-    profesion = st.text_input("Profesión")
-    origen_fondos = st.text_input("Origen de los fondos")
-    patrimonio = st.text_input("Patrimonio")
-    ingresos_anuales = st.text_input("Ingresos anuales")
-    capacidad_patrimonio = st.radio("¿Tiene capacidad para invertir su patrimonio?", ("Sí", "No"))
-    tipo_poder = st.text_input("Tipo de poder (si aplica)")
-    identificado = st.radio("¿Está identificado?", ("Sí", "No"))
-    estructura_propiedad = st.radio("¿Tiene estructura de propiedad?", ("Sí", "No"))
-    falsedad_datos = st.radio("¿Ha proporcionado datos falsos?", ("Sí", "No"))
-    pais_riesgo = st.radio("¿Está en un país de alto riesgo?", ("Sí", "No"))
-    actividades_riesgo = st.radio("¿Realiza actividades de alto riesgo?", ("Sí", "No"))
-    operaciones_riesgo = st.radio("¿Realiza operaciones de alto riesgo?", ("Sí", "No"))
-    responsabilidades_publicas = st.radio("¿Tiene responsabilidades públicas?", ("Sí", "No"))
-    operacion_inusual = st.radio("¿Ha realizado una operación inusual?", ("Sí", "No"))
-    precios_fuera_mercado = st.radio("¿Ha operado con precios fuera de mercado?", ("Sí", "No"))
-    responsable = st.text_input("Responsable (si aplica)")
-    fecha_firma = st.date_input("Fecha de firma")
-
-    # Mostrar los datos del formulario
-    if st.button("Generar KYC"):
-        datos_cliente = {
-            "nombre": nombre,
-            "numero_ficha": numero_ficha,
-            "fecha": str(fecha),
-            "domicilio": domicilio,
-            "telefono": telefono,
-            "email": email,
-            "profesion": profesion,
-            "origen_fondos": origen_fondos,
-            "patrimonio": patrimonio,
-            "ingresos_anuales": ingresos_anuales,
-            "capacidad_patrimonio": capacidad_patrimonio,
-            "tipo_poder": tipo_poder,
-            "identificado": identificado,
-            "estructura_propiedad": estructura_propiedad,
-            "falsedad_datos": falsedad_datos,
-            "pais_riesgo": pais_riesgo,
-            "actividades_riesgo": actividades_riesgo,
-            "operaciones_riesgo": operaciones_riesgo,
-            "responsabilidades_publicas": responsabilidades_publicas,
-            "operacion_inusual": operacion_inusual,
-            "precios_fuera_mercado": precios_fuera_mercado,
-            "responsable": responsable,
-            "fecha_firma": str(fecha_firma)
-        }
-        
-        # Mostrar los datos en la web
-        st.write("Datos del cliente:")
-        st.write(datos_cliente)
-
 import streamlit as st
 from docx import Document
 import os
@@ -138,7 +63,7 @@ if persona == "Persona Física":
         }
 
         # Generar el documento KYC (Word)
-        doc = Document("/path/to/KYC_PS.docx")  # Ruta de tu plantilla
+        doc = Document("KYC_PS.docx")  # Asegúrate de que la ruta es correcta
         for parrafo in doc.paragraphs:
             for clave, valor in datos_cliente.items():
                 if f"{{{{{clave}}}}}" in parrafo.text:
@@ -146,6 +71,15 @@ if persona == "Persona Física":
 
         # Guardar el documento generado
         doc.save("KYC_PS_generated.docx")
+
+        # Crear un botón de descarga
+        with open("KYC_PS_generated.docx", "rb") as f:
+            st.download_button(
+                label="Descargar documento KYC",
+                data=f,
+                file_name="KYC_PS_generated.docx",
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            )
         
         # Mensaje de confirmación
-        st.success("Documento generado con éxito! Puedes descargarlo [aquí](KYC_PS_generated.docx).")
+        st.success("Documento generado con éxito! Puedes descargarlo utilizando el botón.")
